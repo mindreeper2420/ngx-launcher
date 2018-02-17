@@ -1,0 +1,40 @@
+<div class="launcher-dialog">
+  <div class="create-launcher">
+    <form class="col-sm-8 col-sm-offset-2 create-launcher-step active" role="form" (ngSubmit)="createApplication()" novalidate>
+      <section class="container-fluid padding-top-standard-offset">
+        <form class="form" #applicationForm="ngForm">
+          <div class="row">
+            <h1>Create Application</h1>
+            <p>
+              Create a new application ... arrive here from OpenShift.io.
+            </p>
+            <div class="form-group">
+              <label for="developmentProcess" class="control-label">To begin creating your Application, give it a name.</label>
+              <input id="name" name="name" type="text" class="form-control" placeholder="Enter a unique name for your application" [(ngModel)]="application.name" #name="ngModel" required uniqueApplicationName validApplicationName/>
+              <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert-danger">
+                <div [hidden]="!name.errors.required">
+                  An Application name is required.
+                </div>
+                <div [hidden]="!name.errors.unique">
+                  Application name must be unique.
+                </div>
+                <div [hidden]="!name.errors.invalid">
+                  An Application name must contain only letters (upper case or lower case), numbers, spaces, underscores (_) or hyphens(-).<br/>
+                  It cannot start or end with a space, an underscore or a hyphen.
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+      <footer class="container-fluid padding-top-standard-offset padding-bottom-standard-offset">
+        <div class="row">
+          <div class="col-sm-12 create-launcher-step-tool-bar">
+            <button id="createApplicationButton" class="btn btn-primary" aria-label="Ok" [disabled]="!applicationForm.form.valid" type="submit">Continue</button>
+            <button id="cancelApplicationButton" class="btn btn-link" aria-label="Cancel"  (click)="hideNewApplication()">Cancel</button>
+          </div>
+        </div>
+      </footer>
+    </form>
+  </div>
+</div>
